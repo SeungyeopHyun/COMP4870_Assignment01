@@ -1,0 +1,41 @@
+@model IEnumerable<BlogWebApp.Models.User>
+
+<h2>Admin Panel - User Management</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Role</th>
+            <th>Approved</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Username</td>
+                <td>@user.Role</td>
+                <td>@(user.IsApproved ? "✅ Approved" : "❌ Not Approved")</td>
+                <td>
+                    <form method="post" asp-action="UpdateUserRole">
+                        <input type="hidden" name="username" value="@user.Username" />
+
+                        <select name="role" class="form-select">
+                            <option value="User" selected="@(user.Role == "User")">User</option>
+                            <option value="Contributor" selected="@(user.Role == "Contributor")">Contributor</option>
+                        </select>
+
+                        <label>
+                            <input type="checkbox" name="isApproved" value="true" @(user.IsApproved ? "checked" : "") />
+                            Approve Login & Posting
+                        </label>
+
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
