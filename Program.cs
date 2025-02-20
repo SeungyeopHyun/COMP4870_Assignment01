@@ -3,14 +3,19 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// SQLite 연결
+// 환경별로 연결 문자열 설정
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
+                       ?? Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection");
+
+if (string.IsNullOrEmpty(connectionString))
+{
+    throw new InvalidOperationException("Database connection string not found.");
+}
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlite(connectionString));
 
-// MVC 서비스 등록
 builder.Services.AddControllersWithViews();
-AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
@@ -19,18 +24,13 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
-builder.Services.AddAntiforgery();  // CSRF 보호 활성화
-builder.Services.AddControllersWithViews();
-
 var app = builder.Build();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
 app.UseSession();
 app.UseAuthorization();
-app.UseAntiforgery();
 
 app.MapControllerRoute(
     name: "default",

@@ -225,3 +225,4 @@
 /Users/seungyeop/Documents/4870/Assignment/BlogWebApp/obj/Debug/net9.0/BlogWebApp.pdb
 /Users/seungyeop/Documents/4870/Assignment/BlogWebApp/obj/Debug/net9.0/BlogWebApp.genruntimeconfig.cache
 /Users/seungyeop/Documents/4870/Assignment/BlogWebApp/obj/Debug/net9.0/ref/BlogWebApp.dll
+/Users/seungyeop/Documents/4870/Assignment/BlogWebApp/obj/Debug/net9.0/BlogWebApp.sourcelink.json
