@@ -14,14 +14,12 @@ namespace BlogWebApp.Controllers
             _context = context;
         }
 
-        // 유저 목록
         public async Task<IActionResult> Index()
         {
             var users = await _context.Users.ToListAsync();
             return View(users);
         }
 
-        // 역할 변경 및 승인 처리
         [HttpPost]
         public async Task<IActionResult> UpdateUserRole(string username, string role, bool isApproved)
         {

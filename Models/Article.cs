@@ -7,22 +7,22 @@ namespace BlogWebApp.Models
     public class Article
     {
         [Key]
-        public int ArticleId { get; set; } // PK
+        public int ArticleId { get; set; }
 
         [Required]
         public string Title { get; set; } = string.Empty;
 
         [Required]
-        public string Body { get; set; } = string.Empty; // HTML 허용
+        public string Body { get; set; } = string.Empty;
 
         [Required]
-        public DateTime CreateDate { get; set; } = DateTime.UtcNow; // 자동 생성
+        public DateTime CreateDate { get; set; } = DateTime.UtcNow;
 
-        public DateTime? StartDate { get; set; } // 게시 시작일 (선택)
-        public DateTime? EndDate { get; set; } // 게시 종료일 (선택)
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         [Required]
         [ForeignKey("User")]
-        public string ContributorUsername { get; set; } = string.Empty; // 이메일 기반
+        public string ContributorUsername { get; set; } = string.Empty;
     }
 }

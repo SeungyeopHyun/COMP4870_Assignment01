@@ -14,14 +14,12 @@ namespace BlogWebApp.Controllers
             _context = context;
         }
 
-        // 📌 1. 글 목록 (Articles Index)
         public async Task<IActionResult> Index()
         {
             var articles = await _context.Articles.ToListAsync();
             return View(articles);
         }
 
-        // 📌 2. 글 작성 (Create GET)
         [HttpGet]
         public IActionResult Create()
         {
@@ -30,12 +28,11 @@ namespace BlogWebApp.Controllers
             {
                 return View();
             }
-            return Unauthorized();  // 🚨 권한 없으면 Unauthorized 반환
+            return Unauthorized();
         }
 
-        // 📌 3. 글 작성 (Create POST)
         [HttpPost]
-        [ValidateAntiForgeryToken]  // 🚨 CSRF 공격 방지
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Article article)
         {
             if (!ModelState.IsValid)
@@ -51,7 +48,6 @@ namespace BlogWebApp.Controllers
             return RedirectToAction("Index");
         }
 
-        // 📌 4. 글 수정 (Edit GET)
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
@@ -61,7 +57,6 @@ namespace BlogWebApp.Controllers
                 return NotFound();
             }
 
-            // Admin은 모든 글 수정 가능, Contributor는 본인 글만 가능
             if (HttpContext.Session.GetString("Role") != "Admin" && HttpContext.Session.GetString("Username") != article.ContributorUsername)
             {
                 return Unauthorized();
@@ -70,7 +65,6 @@ namespace BlogWebApp.Controllers
             return View(article);
         }
 
-        // 📌 5. 글 수정 (Edit POST)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Article updatedArticle)
@@ -86,7 +80,6 @@ namespace BlogWebApp.Controllers
                 return NotFound();
             }
 
-            // Admin은 모든 글 수정 가능, Contributor는 본인 글만 가능
             if (HttpContext.Session.GetString("Role") != "Admin" && HttpContext.Session.GetString("Username") != existingArticle.ContributorUsername)
             {
                 return Unauthorized();
@@ -105,7 +98,6 @@ namespace BlogWebApp.Controllers
             return View(updatedArticle);
         }
 
-        // 📌 6. 글 삭제 (Delete)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
@@ -116,7 +108,6 @@ namespace BlogWebApp.Controllers
                 return NotFound();
             }
 
-            // Admin은 모든 글 삭제 가능, Contributor는 본인 글만 가능
             if (HttpContext.Session.GetString("Role") != "Admin" && HttpContext.Session.GetString("Username") != article.ContributorUsername)
             {
                 return Unauthorized();

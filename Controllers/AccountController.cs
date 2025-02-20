@@ -37,14 +37,12 @@ namespace BlogWebApp.Controllers
                 return View(model);
             }
 
-            // 승인 여부 확인
             if (!user.IsApproved)
             {
                 ModelState.AddModelError("", "Your account is not approved yet. Please wait for admin approval.");
                 return View(model);
             }
 
-            // 로그인 성공
             HttpContext.Session.SetString("Username", user.Username);
             HttpContext.Session.SetString("Role", user.Role);
 
@@ -82,14 +80,13 @@ namespace BlogWebApp.Controllers
                 return View(model);
             }
 
-            // 비밀번호 해시 자동 생성
             string hashedPassword = BCrypt.Net.BCrypt.HashPassword(model.Password);
             Console.WriteLine($"Generated Hashed Password: {hashedPassword}");
 
             var user = new User
             {
                 Username = model.Username,
-                Password = hashedPassword, // 해시된 비밀번호 저장
+                Password = hashedPassword,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Role = "User"
@@ -109,10 +106,8 @@ namespace BlogWebApp.Controllers
         {
             Console.WriteLine("User logged out.");
 
-            // 세션 삭제
             HttpContext.Session.Clear();
 
-            // 로그인 페이지로 리다이렉트
             return RedirectToAction("Login", "Account");
         }
 

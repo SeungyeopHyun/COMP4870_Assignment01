@@ -11,7 +11,6 @@ namespace BlogWebApp.Data
         {
         }
 
-        // ✅ 기존 User 테이블과 함께 Article 테이블도 추가
         public DbSet<User> Users { get; set; }
         public DbSet<Article> Articles { get; set; }
 
@@ -19,12 +18,11 @@ namespace BlogWebApp.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // ✅ Admin & Contributor 기본 계정 시드 데이터 추가
             modelBuilder.Entity<User>().HasData(
                 new User
                 {
                     Username = "a@a.a",
-                    Password = "$2a$11$OGlqtho7OXl/dt1KWzZFReKnVyKbrYOtr3.cBCCQdVdsLG9iLL1j6", // 해시된 P@$$w0rd
+                    Password = "$2a$11$OGlqtho7OXl/dt1KWzZFReKnVyKbrYOtr3.cBCCQdVdsLG9iLL1j6",
                     FirstName = "Admin",
                     LastName = "User",
                     Role = "Admin",
@@ -33,11 +31,11 @@ namespace BlogWebApp.Data
                 new User
                 {
                     Username = "c@c.c",
-                    Password = "$2a$11$OGlqtho7OXl/dt1KWzZFReKnVyKbrYOtr3.cBCCQdVdsLG9iLL1j6", // 해시된 P@$$w0rd
+                    Password = "$2a$11$OGlqtho7OXl/dt1KWzZFReKnVyKbrYOtr3.cBCCQdVdsLG9iLL1j6",
                     FirstName = "Contributor",
                     LastName = "User",
                     Role = "Contributor",
-                    IsApproved = false // 승인 필요
+                    IsApproved = false
                 }
             );
         }

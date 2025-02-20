@@ -18,8 +18,8 @@ namespace BlogWebApp.Models
         public string LastName { get; set; } = string.Empty;
 
         [Required]
-        public string Role { get; set; } = "User";  // 기본값: 일반 유저
+        public string Role { get; set; } = "User";
 
-        public bool IsApproved { get; set; } = false;  // 승인 여부
+        public bool IsApproved { get; set; } = false;
     }
 }
