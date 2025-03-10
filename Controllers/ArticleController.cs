@@ -40,7 +40,12 @@ namespace BlogWebApp.Controllers
                 return View(article);
             }
 
-            article.ContributorUsername = HttpContext.Session.GetString("Username");
+            var username = HttpContext.Session.GetString("Username");
+            if (username == null)
+            {
+                return Unauthorized();
+            }
+            article.ContributorUsername = username;
             article.CreateDate = DateTime.Now;
 
             _context.Articles.Add(article);

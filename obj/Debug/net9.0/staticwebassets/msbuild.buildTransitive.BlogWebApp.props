@@ -1,3 +1,3 @@
 ﻿<Project>
-  <Import Project="../buildMultiTargeting/BlogWebApp.props" />
+  <Import Project="..\buildMultiTargeting\BlogWebApp.props" />
 </Project>

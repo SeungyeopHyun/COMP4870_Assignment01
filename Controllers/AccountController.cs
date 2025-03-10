@@ -25,6 +25,16 @@ namespace BlogWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -85,10 +95,10 @@ namespace BlogWebApp.Controllers
 
             var user = new User
             {
-                Username = model.Username,
+                Username = model.Username ?? throw new ArgumentNullException(nameof(model.Username)),
                 Password = hashedPassword,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
+                FirstName = model.FirstName ?? throw new ArgumentNullException(nameof(model.FirstName)),
+                LastName = model.LastName ?? throw new ArgumentNullException(nameof(model.LastName)),
                 Role = "User"
             };
 
